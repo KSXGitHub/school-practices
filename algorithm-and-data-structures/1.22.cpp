@@ -57,6 +57,13 @@ void nhap(Queue &queue) {
     }
 }
 
+void xuat(Queue queue) {
+    for (Node *node = queue->head; node; node = node->next) {
+        cout << '\x20' << node->data;
+    }
+    cout << endl;
+}
+
 Node *createNode(Data data = Data()) {
     Node *node = new Node;
     node->data = data;

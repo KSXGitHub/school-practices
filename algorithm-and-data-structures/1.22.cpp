@@ -19,11 +19,33 @@ struct Queue {
 
 /* FUNCTION PROTOTYPES */
 
+int main();
+void nhap(Queue &);
+void xuat(Queue);
 Node *createNode(Data = Data());
 Queue createQueue();
+Data disposeNode(Queue &, unsigned);
+unsigned count(Queue);
 void clearQueue(Queue &);
 
 /* FUNCTION DEFINITIONS */
+
+int main() {
+    Queue queue = createQueue(queue);
+    unsigned n;
+    cout << "Nhap so luong va cac phan tu cua hang doi: ";
+    nhap(queue);
+    cout << "So phan tu cua hang doi: " << count(queue) << endl;
+    cout << "Noi dung hang doi: ";
+    xuat(queue);
+    cout << "Nhap n: ";
+    cin >> n;
+    cout << "Phan tu thu n cua hang doi: " << disposeNode(queue, n) << endl;
+    cout << "Hang doi sau khi xoa phan tu thu n: ";
+    xuat(queue);
+    clearQueue(queue);
+    return 0;
+}
 
 Node *createNode(Data data = Data()) {
     Node *node = new Node;

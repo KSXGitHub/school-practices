@@ -24,7 +24,7 @@ void nhap(Queue &);
 void xuat(Queue);
 Node *createNode(Data = Data());
 Queue createQueue();
-void addNode(Data);
+void addNode(Queue &, Data);
 Data disposeNode(Queue &, unsigned);
 unsigned count(Queue);
 void clearQueue(Queue &);
@@ -46,6 +46,15 @@ int main() {
     xuat(queue);
     clearQueue(queue);
     return 0;
+}
+
+void nhap(Queue &queue) {
+    unsigned count;
+    for (cin >> count; count; --count) {
+        Data data;
+        cin >> data;
+        addNode(queue, data);
+    }
 }
 
 Node *createNode(Data data = Data()) {

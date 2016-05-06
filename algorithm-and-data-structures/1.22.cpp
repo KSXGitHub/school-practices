@@ -92,3 +92,22 @@ void clearQueue(Queue &queue) {
         current = next;
     }
 }
+
+Data disposeNode(Queue &queue, unsigned position) {
+    if (position) {
+        Node *prev = NULL, *current = queue.head;
+        while (position) {
+            prev = current;
+            current = current->next;
+            --position;
+        }
+        Data out = current->data;
+        prev->next = current->next;
+        if (current == queue.tail) {
+            queue.tail = prev;
+        }
+        delete current;
+        return out;
+    }
+    return disposeHead(queue);
+}

@@ -36,3 +36,12 @@ Queue createQueue() {
     Queue queue;
     queue.head = queue.tail = NULL;
 }
+
+void clearQueue(Queue &queue) {
+    Node *current = queue.head, *next;
+    while (current) {
+        next = current->next;
+        delete current;
+        current = next;
+    }
+}

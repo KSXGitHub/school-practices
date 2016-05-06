@@ -22,7 +22,7 @@ struct Queue {
 int main();
 void nhap(Queue &);
 void xuat(Queue);
-Node *createNode(Data = Data());
+Node *createNode(Data, Node * = NULL);
 Queue createQueue();
 void addNode(Queue &, Data);
 Data disposeNode(Queue &, unsigned);
@@ -64,16 +64,24 @@ void xuat(Queue queue) {
     cout << endl;
 }
 
-Node *createNode(Data data = Data()) {
+Node *createNode(Data data, Node *next = NULL) {
     Node *node = new Node;
     node->data = data;
-    node->next = NULL;
+    node->next = next;
     return node;
 }
 
 Queue createQueue() {
     Queue queue;
     queue.head = queue.tail = NULL;
+}
+
+void addNode(Queue &queue, Data data) {
+    Node *newnode = createNode(data, queue.head);
+    if (!queue.head) {
+        queue.tail = newnode;
+    }
+    queue.head = newnode;
 }
 
 void clearQueue(Queue &queue) {

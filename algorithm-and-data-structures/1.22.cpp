@@ -26,23 +26,25 @@ Node *createNode(Data, Node * = NULL);
 Queue createQueue();
 void addNode(Queue &, Data);
 Data disposeNode(Queue &, unsigned);
+Data disposeHead(Queue &);
 unsigned count(Queue);
 void clearQueue(Queue &);
 
 /* FUNCTION DEFINITIONS */
 
 int main() {
-    Queue queue = createQueue(queue);
+    Queue queue = createQueue();
     unsigned n;
-    cout << "Nhap so luong va cac phan tu cua hang doi: ";
+    system("chcp 65001");
+    cout << "Nhập số lượng và các phần tử hàng đợi: ";
     nhap(queue);
-    cout << "So phan tu cua hang doi: " << count(queue) << endl;
-    cout << "Noi dung hang doi: ";
+    cout << "Số phần tử của hàng đợi: " << count(queue) << endl;
+    cout << "Nội dung của hàng đợi: ";
     xuat(queue);
-    cout << "Nhap n: ";
+    cout << "Nhập n: ";
     cin >> n;
-    cout << "Phan tu thu n cua hang doi: " << disposeNode(queue, n) << endl;
-    cout << "Hang doi sau khi xoa phan tu thu n: ";
+    cout << "Đã xóa một phần tử có giá trị bằng " << disposeNode(queue, n) << " khỏi hàng đợi\n";
+    cout << "Nội dung của hàng đợi: ";
     xuat(queue);
     clearQueue(queue);
     return 0;
@@ -58,13 +60,13 @@ void nhap(Queue &queue) {
 }
 
 void xuat(Queue queue) {
-    for (Node *node = queue->head; node; node = node->next) {
+    for (Node *node = queue.head; node; node = node->next) {
         cout << '\x20' << node->data;
     }
     cout << endl;
 }
 
-Node *createNode(Data data, Node *next = NULL) {
+Node *createNode(Data data, Node *next) {
     Node *node = new Node;
     node->data = data;
     node->next = next;
@@ -74,22 +76,17 @@ Node *createNode(Data data, Node *next = NULL) {
 Queue createQueue() {
     Queue queue;
     queue.head = queue.tail = NULL;
+    return queue;
 }
 
 void addNode(Queue &queue, Data data) {
-    Node *newnode = createNode(data, queue.head);
-    if (!queue.head) {
-        queue.tail = newnode;
+    Node *newnode = createNode(data, NULL);
+    if (queue.tail) {
+        queue.tail->next = newnode;
     }
-    queue.head = newnode;
-}
-
-void clearQueue(Queue &queue) {
-    Node *current = queue.head, *next;
-    while (current) {
-        next = current->next;
-        delete current;
-        current = next;
+    queue.tail = newnode;
+    if (!queue.head) {
+        queue.head = newnode;
     }
 }
 
@@ -104,10 +101,42 @@ Data disposeNode(Queue &queue, unsigned position) {
         Data out = current->data;
         prev->next = current->next;
         if (current == queue.tail) {
-            queue.tail = prev;
+            queue.head = prev;
         }
         delete current;
         return out;
     }
     return disposeHead(queue);
+}
+
+Data disposeHead(Queue &queue) {
+    Node *node = queue.head;
+    if (node) {
+        Data out = node->data;
+        queue.head = node->next;
+        if (node == queue.tail) {
+            queue.tail = NULL;
+        }
+        delete node;
+        return out;
+    }
+    throw "Failed to dispose an empty queue";
+}
+
+unsigned count(Queue queue) {
+    unsigned result = 0;
+    for (Node *node = queue.head; node; node = node->next) {
+        ++result;
+    }
+    return result;
+}
+
+void clearQueue(Queue &queue) {
+    Node *current = queue.head, *next;
+    while (current) {
+        next = current->next;
+        delete current;
+        current = next;
+    }
+    queue.head = queue.tail = NULL;
 }

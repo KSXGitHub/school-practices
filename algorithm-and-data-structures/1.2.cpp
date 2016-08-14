@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -23,25 +24,28 @@ int main() {
     unsigned vitri;
     int phantu;
 
+    // Khởi tạo Command Prompt
+    system("chcp 65001");
+
     // Nhập mảng, Xuất mảng
-    cout << "Nhap so luong va cac phan tu: ";
+    cout << "Nhập số lượng và các phần tử: ";
     nhap(danhsach);
-    cout << "Danh sach da nhap: ";
+    cout << "Danh sách đã nhập: ";
     xuat(danhsach);
 
     // Chèn phần tử, Xuất mảng
-    cout << "Nhap vi tri, phan tu can chen: ";
+    cout << "Nhập vị trí phần tử cần chèn: ";
     cin >> vitri >> phantu;
     chen(danhsach, vitri, phantu);
-    cout << "Danh sach sau khi chen: ";
+    cout << "Danh sách sau khi chèn: ";
     xuat(danhsach);
 
     // Xóa phần tử, xuất mảng
-    cout << "Nhap vi tri cua phan tu can xoa: ";
+    cout << "Nhập vị trí của phần tử cần xóa: ";
     cin >> vitri;
     phantu = xoa(danhsach, vitri);
-    cout << "Da xoa phan tu " << phantu << " khoi danh sach\n";
-    cout << "Danh sach sau khi xoa: ";
+    cout << "Đã xóa phần tử " << phantu << " khỏi danh sách\n";
+    cout << "Danh sách sau khi xóa: ";
     xuat(danhsach);
 
     // Kết thúc
